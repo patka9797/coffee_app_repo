@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from pymongo.cursor import Cursor #tools for iterating in MongoDB
 from bson.objectid import ObjectId
-from models import Coffee
-from database import coffees_collection
+from app.models import Coffee
+from app.database import coffees_collection
 
 
 app= FastAPI()
@@ -16,3 +16,16 @@ def get_coffees():
         coffees_models.append(coffee)
     return coffees_models
 
+@app.post("/coffees", response_model=Coffee )
+def create_coffes(coffee: Coffee):
+    coffees_collection.insert_one(coffee.dict(exclude_none=True))
+    return coffee
+
+@app.get("/coffees")
+def description(string):
+    string=""""
+    This API helps ypu to find perfect kind of coffee.
+    API gives you all details you need to make perfect beverge.
+    What can I sai? Hm... Enjoj!!!
+    """
+    print(string)
