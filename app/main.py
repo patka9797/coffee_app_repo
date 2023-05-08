@@ -10,25 +10,22 @@ app = FastAPI()
 
 @app.get("/coffees/", response_model=list[Coffee])
 def get_coffees():
-    coffees: Cursor = coffees_collection.find()
-    coffees_models = []
-    for coffee in coffees:
-        coffee["id"] = str(coffee["_id"])
-        coffees_models.append(coffee)
-    return coffees_models
+    coffees=[]
+    for coffee in coffees_collection.find():
+        coffee['id']= str(coffee['_id'])
+        coffees.append(coffee)
+    return coffees
 
 
-@app.post("/coffees", response_model=Coffee)
-def create_coffes(coffee: Coffee):
+@app.post("/coffees/", response_model=Coffee)
+def create_coffee(coffee: Coffee):
     coffees_collection.insert_one(coffee.dict(exclude_none=True))
     return coffee
 
+@app.delete("/coffees/{id}")
+def delete_coffee(id: str):
+    coffees_collection.delete_one({"_id": ObjectId(id)})
+    return {f"coffee with id {id} delaited from base."}  
 
-@app.get("/coffees")
-def description(string):
-    string = """"
-    This API helps ypu to find perfect kind of coffee.
-    API gives you all details you need to make perfect beverge.
-    What can I sai? Hm... Enjoj!!!
-    """
-    print(string)
+
+
