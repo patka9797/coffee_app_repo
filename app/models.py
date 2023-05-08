@@ -13,7 +13,7 @@ class Coffee(BaseModel):
 
     def __str__(self):
         return f"""/
-        {self.name.capitalize()}
+        {self.beverage_method.capitalize()}
 
         Origin: {self.origin}
         Steps: {self.steps}
