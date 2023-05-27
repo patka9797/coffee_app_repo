@@ -10,7 +10,6 @@ class Coffee(BaseModel):
     portions: int
     tags: list[str]
 
-
     def __str__(self):
         return f"""/
         {self.beverage_method.capitalize()}

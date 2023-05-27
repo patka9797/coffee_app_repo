@@ -4,7 +4,7 @@ from bson.objectid import ObjectId
 from app.models import Coffee
 from app.database import coffees_collection
 
-description="""
+description = """
 Coffees API helps you to choice the best coffee to you!
 You can read about coffee body resulting from origin and beverage methods.
 
@@ -15,15 +15,11 @@ If you are the coffeeholic this app is for you
 
 
 app = FastAPI(
- title="CoffeesAPP",
-description=description,
-version="0.0.1",
-contact={
-    "name":"Patrycja",
-    "email":"patrycjamzn@gmail.com"
-}  
+    title="CoffeesAPP",
+    description=description,
+    version="0.0.1",
+    contact={"name": "Patrycja", "email": "patrycjamzn@gmail.com"},
 )
-
 
 
 @app.get("/coffees/", response_model=list[Coffee])
